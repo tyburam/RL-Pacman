@@ -15,6 +15,12 @@ def main_menu(screen):
     background.fill(BLACK)
 
     player_panel = Panel()
+    ghost1_panel = Panel(200, 10, 'Ghost 1', 'ghost.gif')
+    ghost2_panel = Panel(400, 10, 'Ghost 2', 'skeleton.gif')
+    all_panels = pygame.sprite.Group()
+    all_panels.add(player_panel)
+    all_panels.add(ghost1_panel)
+    all_panels.add(ghost2_panel)
 
     clock = pygame.time.Clock()
     running = True
@@ -24,9 +30,12 @@ def main_menu(screen):
             running = not ((event.type == KEYDOWN and event.key == K_ESCAPE) or event.type == QUIT)
 
         player_panel.check_click()
+        ghost1_panel.check_click()
+        ghost2_panel.check_click()
 
         screen.blit(background, (0, 0))
-        screen.blit(player_panel.surf, player_panel.rect)
+        for entity in all_panels:
+            screen.blit(entity.surf, entity.rect)
         pygame.display.flip()
         clock.tick(10)
 

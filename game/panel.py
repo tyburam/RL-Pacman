@@ -4,16 +4,15 @@ from game.consts import WHITE, BLACK
 
 
 class Panel(pygame.sprite.Sprite):
-    def __init__(self, x=10, y=10, name="Player", filename='frog.gif'):
+    def __init__(self, x=10, y=10, name='Player', filename='frog.gif'):
         super(Panel, self).__init__()
         self.surf = pygame.Surface((200, 200))
-        self.rect = self.surf.get_rect()
-        self.rect.left = x
-        self.rect.top = y
+        self.rect = self.surf.get_rect(left=x, top=y, width=200, height=200)
         self.chosen = 0
 
         # load icon
         icon = pygame.image.load('./assets/' + filename).convert()
+        x = y = 0
         self.surf.blit(icon, (x + 10, y + 10))
 
         # put text near icon

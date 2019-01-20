@@ -6,7 +6,7 @@ from game.engine import main_menu, main_loop
 
 pygame.init()
 pygame.display.set_caption('RL-Pacman')
-screen = pygame.display.set_mode((406, 406))
+screen = pygame.display.set_mode((600, 406))
 
 pygame.mouse.set_visible(True)
 main_menu(screen)
