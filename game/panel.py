@@ -48,7 +48,7 @@ class Panel(pygame.sprite.Sprite):
                 break
             cur_y += 20
 
-        if new_chosen != self.chosen:
+        if new_chosen >= 0 and new_chosen != self.chosen:
             pygame.draw.circle(self.surf, WHITE, [self.button1_x, self.button1_y + self.chosen * 20], 5)
             self.chosen = new_chosen
             pygame.draw.circle(self.surf, BLACK, [self.button1_x, self.button1_y + self.chosen * 20], 3)
