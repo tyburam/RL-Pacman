@@ -8,7 +8,7 @@ class RoundRobinAgent(Agent):
         super(RoundRobinAgent, self).__init__(actions)
 
     def act(self, obs):
-        if self.previous_action == None:
+        if self.previous_action is None:
             self.previous_action = 0
             return 0
 

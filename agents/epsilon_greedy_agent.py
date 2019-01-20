@@ -8,7 +8,7 @@ class EpsilonGreedyAgent(Agent):
         self.total_rewards = np.zeros(len(actions), dtype=np.longdouble)
         self.total_counts = np.zeros(len(actions), dtype=np.longdouble)
 
-        if (epsilon is None or epsilon < 0 or epsilon > 1):
+        if epsilon is None or epsilon < 0 or epsilon > 1:
             raise ValueError("EpsilonGreedy: Invalid value of epsilon")
         self.epsilon = epsilon
         self.bound_eps = (self.epsilon == 0 or self.epsilon == 1)
