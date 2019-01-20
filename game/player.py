@@ -11,10 +11,9 @@ from agents.thompson_beta_agent import ThompsonBetaAgent
 
 
 class AgentPlayer(pygame.sprite.Sprite):
-    def __init__(self, x=10, y=10, agent_type=AgentType.RANDOM):
+    def __init__(self, x=10, y=10, filename='frog.gif', agent_type=AgentType.RANDOM):
         super(AgentPlayer, self).__init__()
-        self.surf = pygame.Surface((32, 32))
-        self.surf.fill(WHITE)
+        self.surf = pygame.image.load('./assets/'+filename).convert()
         self.rect = self.surf.get_rect()
         self.rect.left = x
         self.rect.top = y
