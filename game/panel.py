@@ -6,7 +6,7 @@ from game.consts import WHITE, BLACK
 class Panel(pygame.sprite.Sprite):
     def __init__(self, x=10, y=10, name="Player", filename='frog.gif'):
         super(Panel, self).__init__()
-        self.surf = pygame.Surface([200, 200])
+        self.surf = pygame.Surface((200, 200))
         self.rect = self.surf.get_rect()
         self.rect.left = x
         self.rect.top = y
@@ -43,7 +43,7 @@ class Panel(pygame.sprite.Sprite):
         cur_y = self.button1_y
         new_chosen = -1
         for ind, ag in enumerate(self.agent_names):
-            if self.button1_x + 50 > mouse[0] > self.button1_x and cur_y + 15 > mouse[1] > cur_y:
+            if self.button1_x + 150 > mouse[0] > self.button1_x and cur_y + 15 > mouse[1] > cur_y:
                 new_chosen = ind
                 break
             cur_y += 20
