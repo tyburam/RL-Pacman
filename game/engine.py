@@ -23,6 +23,8 @@ def main_menu(screen):
             # works until windows is closed or ESC is pressed
             running = not ((event.type == KEYDOWN and event.key == K_ESCAPE) or event.type == QUIT)
 
+        player_panel.check_click()
+
         screen.blit(background, (0, 0))
         screen.blit(player_panel.surf, player_panel.rect)
         pygame.display.flip()

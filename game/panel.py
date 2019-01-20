@@ -22,15 +22,37 @@ class Panel(pygame.sprite.Sprite):
         self.surf.blit(text, (x + 30, y + 14))
 
         # agents (enum starts at 1)
-        agent_names = ['RANDOM', 'GREEDY', 'ROUND_ROBIN', 'EPSILON_GREEDY', 'UCB', 'THOMPSON_BETA']
+        self.agent_names = ['RANDOM', 'GREEDY', 'ROUND_ROBIN', 'EPSILON_GREEDY', 'UCB', 'THOMPSON_BETA']
         cur_y = y + 52
-        for ind, ag in enumerate(agent_names):
+        self.button1_x = x + 20
+        self.button1_y = cur_y
+        for ind, ag in enumerate(self.agent_names):
             pygame.draw.circle(self.surf, WHITE, [x + 20, cur_y], 5)
             if self.chosen == ind:
                 pygame.draw.circle(self.surf, BLACK, [x + 20, cur_y], 3)
             text = font.render(ag, True, WHITE)
             self.surf.blit(text, (x + 30, cur_y - 8))
             cur_y += 20
+
+    def check_click(self):
+        clicked = pygame.mouse.get_pressed()
+        if clicked[0] != 1:
+            return
+
+        mouse = pygame.mouse.get_pos()
+        cur_y = self.button1_y
+        new_chosen = -1
+        for ind, ag in enumerate(self.agent_names):
+            if self.button1_x + 50 > mouse[0] > self.button1_x and cur_y + 15 > mouse[1] > cur_y:
+                new_chosen = ind
+                break
+            cur_y += 20
+
+        if new_chosen != self.chosen:
+            pygame.draw.circle(self.surf, WHITE, [self.button1_x, self.button1_y + self.chosen * 20], 5)
+            self.chosen = new_chosen
+            pygame.draw.circle(self.surf, BLACK, [self.button1_x, self.button1_y + self.chosen * 20], 3)
+
 
 
 
