@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from game.consts import BLACK
+from game.consts import BLACK, WHITE
 from game.panel import Panel
 from game.player import AgentPlayer
 from game.wall import get_walls
@@ -22,6 +22,9 @@ def main_menu(screen):
     all_panels.add(ghost1_panel)
     all_panels.add(ghost2_panel)
 
+    font = pygame.font.SysFont('Sans', 25)
+    text = font.render('START', True, WHITE)
+
     clock = pygame.time.Clock()
     running = True
     while running:
@@ -33,9 +36,17 @@ def main_menu(screen):
         ghost1_panel.check_click()
         ghost2_panel.check_click()
 
+        clicked = pygame.mouse.get_pressed()
+        mouse = pygame.mouse.get_pos()
+        if clicked[0] == 1 and 400 >= mouse[1] >= 320:
+            return
+
         screen.blit(background, (0, 0))
         for entity in all_panels:
             screen.blit(entity.surf, entity.rect)
+
+        screen.blit(text, (250, 350))
+        pygame.draw.rect(background, WHITE, [0, 320, 600, 80], 3)
         pygame.display.flip()
         clock.tick(10)
 
