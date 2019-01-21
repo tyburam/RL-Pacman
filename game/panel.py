@@ -9,6 +9,7 @@ class Panel(pygame.sprite.Sprite):
         self.surf = pygame.Surface((200, 200))
         self.rect = self.surf.get_rect(left=x, top=y, width=200, height=200)
         self.chosen = 0
+        self.btn1_abs_x = x + 10
 
         # load icon
         icon = pygame.image.load('./assets/' + filename).convert()
@@ -23,8 +24,8 @@ class Panel(pygame.sprite.Sprite):
         # agents (enum starts at 1)
         self.agent_names = ['RANDOM', 'GREEDY', 'ROUND_ROBIN', 'EPSILON_GREEDY', 'UCB', 'THOMPSON_BETA']
         cur_y = y + 52
-        self.button1_x = x + 20
-        self.button1_y = cur_y
+        self.btn1_abs_y = self.btn1_rel_y = cur_y
+        self.btn1_rel_x = x + 20
         for ind, ag in enumerate(self.agent_names):
             pygame.draw.circle(self.surf, WHITE, [x + 20, cur_y], 5)
             if self.chosen == ind:
@@ -39,18 +40,18 @@ class Panel(pygame.sprite.Sprite):
             return
 
         mouse = pygame.mouse.get_pos()
-        cur_y = self.button1_y
+        cur_y = self.btn1_rel_y
         new_chosen = -1
         for ind, ag in enumerate(self.agent_names):
-            if self.button1_x + 150 > mouse[0] > self.button1_x and cur_y + 15 > mouse[1] > cur_y:
+            if self.btn1_abs_x + 150 >= mouse[0] >= self.btn1_abs_x and cur_y + 15 >= mouse[1] >= cur_y:
                 new_chosen = ind
                 break
             cur_y += 20
 
         if new_chosen >= 0 and new_chosen != self.chosen:
-            pygame.draw.circle(self.surf, WHITE, [self.button1_x, self.button1_y + self.chosen * 20], 5)
+            pygame.draw.circle(self.surf, WHITE, [self.btn1_rel_x, self.btn1_rel_y + self.chosen * 20], 5)
             self.chosen = new_chosen
-            pygame.draw.circle(self.surf, BLACK, [self.button1_x, self.button1_y + self.chosen * 20], 3)
+            pygame.draw.circle(self.surf, BLACK, [self.btn1_rel_x, self.btn1_rel_y + self.chosen * 20], 3)
 
 
 
