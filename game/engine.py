@@ -6,11 +6,8 @@ from game.player import AgentPlayer
 from game.stats import Stats
 from game.wall import get_walls
 
-main_menu_closing = False
-
 
 def main_menu(screen):
-    global main_menu_closing
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill(BLACK)
@@ -51,12 +48,10 @@ def main_menu(screen):
         pygame.display.flip()
         clock.tick(10)
 
-    main_menu_closing = True
     return None
 
 
 def main_loop(screen, chosen):
-    global main_menu_closing
     if chosen is None:
         return
     background = pygame.Surface(screen.get_size())
