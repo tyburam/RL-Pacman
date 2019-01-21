@@ -3,6 +3,7 @@ from pygame.locals import *
 from game.consts import BLACK, WHITE
 from game.panel import Panel
 from game.player import AgentPlayer
+from game.stats import Stats
 from game.wall import get_walls
 
 main_menu_closing = False
@@ -68,11 +69,13 @@ def main_loop(screen):
     ghosts.add(ghost1)
     ghosts.add(ghost2)
     all_walls = get_walls()
+    stats = Stats()
 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(all_walls)
     all_sprites.add(main_player)
     all_sprites.add(ghosts)
+    all_sprites.add(stats)
 
     clock = pygame.time.Clock()
     running = True
