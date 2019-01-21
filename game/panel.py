@@ -40,7 +40,7 @@ class Panel(pygame.sprite.Sprite):
         mouse = pygame.mouse.get_pos()
         cur_y = self.btn1_rel_y
         new_chosen = -1
-        for ind, ag in enumerate(self.agent_names):
+        for ind, ag in enumerate(AGENT_NAMES):
             if self.btn1_abs_x + 150 >= mouse[0] >= self.btn1_abs_x and cur_y + 15 >= mouse[1] >= cur_y:
                 new_chosen = ind
                 break
