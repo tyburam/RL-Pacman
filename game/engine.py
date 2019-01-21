@@ -1,5 +1,7 @@
 import pygame
 from pygame.locals import *
+
+from game.ball import Ball
 from game.consts import BLACK, WHITE
 from game.panel import Panel
 from game.player import AgentPlayer
@@ -65,9 +67,11 @@ def main_loop(screen, chosen):
     ghosts.add(ghost1)
     ghosts.add(ghost2)
     all_walls = get_walls()
+    all_balls = Ball.get_balls()
     stats = Stats(agents=chosen)
 
     all_sprites = pygame.sprite.Group()
+    all_sprites.add(all_balls)
     all_sprites.add(all_walls)
     all_sprites.add(main_player)
     all_sprites.add(ghosts)
@@ -83,6 +87,7 @@ def main_loop(screen, chosen):
         main_player.update(all_walls, [])
         ghost1.update(all_walls, [])
         ghosts.update(all_walls, [])
+        stats.update()
 
         screen.blit(background, (0, 0))
 
