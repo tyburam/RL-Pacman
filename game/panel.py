@@ -1,6 +1,6 @@
 import pygame
 
-from game.consts import WHITE, BLACK
+from game.consts import WHITE, BLACK, AGENT_NAMES
 
 
 class Panel(pygame.sprite.Sprite):
@@ -21,12 +21,10 @@ class Panel(pygame.sprite.Sprite):
         text = font.render(name, True, WHITE)
         self.surf.blit(text, (x + 30, y + 14))
 
-        # agents (enum starts at 1)
-        self.agent_names = ['RANDOM', 'GREEDY', 'ROUND_ROBIN', 'EPSILON_GREEDY', 'UCB', 'THOMPSON_BETA']
         cur_y = y + 52
         self.btn1_abs_y = self.btn1_rel_y = cur_y
         self.btn1_rel_x = x + 20
-        for ind, ag in enumerate(self.agent_names):
+        for ind, ag in enumerate(AGENT_NAMES):
             pygame.draw.circle(self.surf, WHITE, [x + 20, cur_y], 5)
             if self.chosen == ind:
                 pygame.draw.circle(self.surf, BLACK, [x + 20, cur_y], 3)
