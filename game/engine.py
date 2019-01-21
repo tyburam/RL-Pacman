@@ -83,6 +83,9 @@ def main_loop(screen, chosen):
         for event in pygame.event.get():
             # works until windows is closed or ESC is pressed
             running = not ((event.type == KEYDOWN and event.key == K_ESCAPE) or event.type == QUIT)
+            if event.type == KEYDOWN and (event.key == K_RETURN or event.key == K_KP_ENTER):
+                main_loop(screen, chosen)
+                return
 
         main_player.update(all_walls, [])
         ghost1.update(all_walls, [])
