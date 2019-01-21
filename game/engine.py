@@ -40,7 +40,7 @@ def main_menu(screen):
         clicked = pygame.mouse.get_pressed()
         mouse = pygame.mouse.get_pos()
         if clicked[0] == 1 and 400 >= mouse[1] >= 320:
-            return
+            return player_panel.chosen, ghost1_panel.chosen, ghost2_panel.chosen
 
         screen.blit(background, (0, 0))
         for entity in all_panels:
@@ -52,11 +52,12 @@ def main_menu(screen):
         clock.tick(10)
 
     main_menu_closing = True
+    return None
 
 
-def main_loop(screen):
+def main_loop(screen, chosen):
     global main_menu_closing
-    if main_menu_closing:
+    if chosen is None:
         return
     background = pygame.Surface(screen.get_size())
     background = background.convert()
@@ -69,7 +70,7 @@ def main_loop(screen):
     ghosts.add(ghost1)
     ghosts.add(ghost2)
     all_walls = get_walls()
-    stats = Stats()
+    stats = Stats(agents=chosen)
 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(all_walls)
