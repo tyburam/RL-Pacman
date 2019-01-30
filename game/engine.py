@@ -73,6 +73,7 @@ def main_loop(screen, chosen):
     all_walls = get_walls()
     all_balls = Ball.get_balls()
     stats = Stats(agents=chosen)
+    points = 0
 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(all_balls)
@@ -94,7 +95,7 @@ def main_loop(screen, chosen):
         main_player.update(all_walls, [])
         ghost1.update(all_walls, [])
         ghosts.update(all_walls, [])
-        stats.update()
+        stats.update(points)
 
         screen.blit(background, (0, 0))
 
@@ -104,6 +105,7 @@ def main_loop(screen, chosen):
         coll_ball = pygame.sprite.spritecollideany(main_player, all_balls)
         if coll_ball:
             coll_ball.kill()
+            points += 10
 
         if pygame.sprite.spritecollideany(main_player, ghosts):
             main_player.kill()
