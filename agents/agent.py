@@ -8,6 +8,7 @@ class AgentType(Enum):
     EPSILON_GREEDY = 4
     UCB = 5
     THOMPSON_BETA = 6
+    SARSA = 6
 
 
 class Agent(object):

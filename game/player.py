@@ -1,5 +1,6 @@
 import pygame
 
+from agents.sarsa_agent import SarsaAgent
 from game.consts import *
 from agents.agent import AgentType
 from agents.random_agent import RandomAgent
@@ -32,6 +33,8 @@ class AgentPlayer(pygame.sprite.Sprite):
             self.agent = UcbAgent(ALL_ACTIONS, 0.5)
         elif agent_type == AgentType.THOMPSON_BETA:
             self.agent = ThompsonBetaAgent(ALL_ACTIONS)
+        elif agent_type == AgentType.SARSA:
+            self.agent = SarsaAgent(ALL_ACTIONS)
 
     def update(self, walls, observation):
         self.action = self.agent.act(observation)
