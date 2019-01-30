@@ -56,6 +56,10 @@ def main_menu(screen):
 def main_loop(screen, chosen):
     if chosen is None:
         return
+
+    font = pygame.font.SysFont('Sans', 60)
+    text = font.render('GAME OVER', True, WHITE)
+
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill(BLACK)
@@ -99,6 +103,7 @@ def main_loop(screen, chosen):
 
         if pygame.sprite.spritecollideany(main_player, ghosts):
             main_player.kill()
+            screen.blit(text, (250, 350))
 
         pygame.display.flip()
         clock.tick(10)
