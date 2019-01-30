@@ -101,6 +101,10 @@ def main_loop(screen, chosen):
         for entity in all_sprites:
             screen.blit(entity.surf, entity.rect)
 
+        coll_ball = pygame.sprite.spritecollideany(main_player, all_balls)
+        if coll_ball:
+            coll_ball.kill()
+
         if pygame.sprite.spritecollideany(main_player, ghosts):
             main_player.kill()
             screen.blit(text, (250, 350))
