@@ -9,6 +9,17 @@ from game.stats import Stats
 from game.wall import get_walls
 
 
+def get_state(player, ghost1, ghost2, points, all_balls):
+    dist_g1_pl = abs(player.rect.left - ghost1.rect.left) + abs(player.rect.top - ghost1.rect.top)
+    dist_g2_pl = abs(player.rect.left - ghost2.rect.left) + abs(player.rect.top - ghost2.rect.top)
+    dist_pac_ball = 999999999
+    for ball in all_balls:
+        dist = abs(player.rect.left - ball.rect.left) + abs(player.rect.top - ball.rect.top)
+        if dist < dist_pac_ball:
+            dist_pac_ball = dist
+    return [len(all_balls.sprites()), points, dist_pac_ball, dist_g1_pl, dist_g2_pl]
+
+
 def main_menu(screen):
     background = pygame.Surface(screen.get_size())
     background = background.convert()
@@ -92,15 +103,7 @@ def main_loop(screen, chosen):
                 main_loop(screen, chosen)
                 return
 
-        dist_g1_pl = abs(main_player.rect.left - ghost1.rect.left) + abs(main_player.rect.top - ghost1.rect.top)
-        dist_g2_pl = abs(main_player.rect.left - ghost2.rect.left) + abs(main_player.rect.top - ghost2.rect.top)
-        dist_pac_ball = 999999999
-        for ball in all_balls:
-            dist = abs(main_player.rect.left - ball.rect.left) + abs(main_player.rect.top - ball.rect.top)
-            if dist < dist_pac_ball:
-                dist_pac_ball = dist
-        observations = [points, dist_pac_ball, dist_g1_pl, dist_g2_pl]
-
+        observations = get_state(main_player, ghost1, ghost2, points, all_balls)
         main_player.update(all_walls, observations)
         ghost1.update(all_walls, observations)
         ghosts.update(all_walls, observations)
@@ -111,21 +114,24 @@ def main_loop(screen, chosen):
         for entity in all_sprites:
             screen.blit(entity.surf, entity.rect)
 
+        player_reward = ghost_reward = 0
         coll_ball = pygame.sprite.spritecollideany(main_player, all_balls)
         if coll_ball:
             coll_ball.kill()
             points += 10
-            main_player.feedback(10)
+            player_reward = 10
 
         coll_ghost = pygame.sprite.spritecollideany(main_player, ghosts)
         if coll_ghost:
             main_player.kill()
             screen.blit(text, (250, 350))
-            coll_ghost.reward(1000)
-            main_player.feedback(-1000)
+            ghost_reward = 1000
+            player_reward = -1000
 
-        if not coll_ball or not coll_ghost:
-            main_player.feedback(0)
+        after = get_state(main_player, ghost1, ghost2, points, all_balls)
+        main_player.feedback(observations, after, player_reward)
+        ghost1.feedback(observations, after, ghost_reward)
+        ghost2.feedback(observations, after, ghost_reward)
 
         pygame.display.flip()
         clock.tick(10)

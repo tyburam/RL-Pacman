@@ -19,5 +19,5 @@ class Agent(object):
     def act(self, obs):
         raise NotImplementedError
 
-    def feedback(self, action, reward):
+    def feedback(self, state_before, state_after, action, reward):
         pass

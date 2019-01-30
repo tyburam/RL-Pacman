@@ -61,5 +61,5 @@ class AgentPlayer(pygame.sprite.Sprite):
             self.rect.left = old_x
             self.rect.top = old_y
 
-    def feedback(self, reward):
-        self.agent.feedback(self.action, reward)
+    def feedback(self, before, after, reward):
+        self.agent.feedback(before, after, self.action, reward)

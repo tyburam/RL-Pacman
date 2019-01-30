@@ -16,6 +16,6 @@ class GreedyAgent(Agent):
         current_averages[self.total_counts <= 0] = 0.5
         return np.argmax(current_averages)
 
-    def feedback(self, action, reward):
+    def feedback(self, state_before, state_after, action, reward):
         self.total_rewards[action] += reward
         self.total_counts[action] += 1
