@@ -27,4 +27,5 @@ WALLS = [[0, 0, 6, 400],  # borders begin
          ]
 
 # agents (enum starts at 1)
-AGENT_NAMES = ['RANDOM', 'GREEDY', 'ROUND_ROBIN', 'EPSILON_GREEDY', 'UCB', 'THOMPSON_BETA', 'SARSA']
+AGENT_NAMES = ['RANDOM', 'GREEDY', 'ROUND_ROBIN', 'EPSILON_GREEDY', 'UCB', 'THOMPSON_BETA', 'SARSA', 'Q LEARNING',
+               'LFA Q LEARNING']

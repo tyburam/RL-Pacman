@@ -1,5 +1,7 @@
 import pygame
 
+from agents.lfa_q_learning_agent import LinearFunctionApproximationQLearningAgent
+from agents.q_learning_agent import QLearningAgent
 from agents.sarsa_agent import SarsaAgent
 from game.consts import *
 from agents.agent import AgentType
@@ -35,6 +37,10 @@ class AgentPlayer(pygame.sprite.Sprite):
             self.agent = ThompsonBetaAgent(ALL_ACTIONS)
         elif agent_type == AgentType.SARSA:
             self.agent = SarsaAgent(ALL_ACTIONS)
+        elif agent_type == AgentType.QLEARNING:
+            self.agent = QLearningAgent(ALL_ACTIONS)
+        elif agent_type == AgentType.LFAQLEARNING:
+            self.agent = LinearFunctionApproximationQLearningAgent(ALL_ACTIONS)
 
     def update(self, walls, observation):
         self.action = self.agent.act(observation)

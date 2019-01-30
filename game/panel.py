@@ -6,8 +6,8 @@ from game.consts import WHITE, BLACK, AGENT_NAMES
 class Panel(pygame.sprite.Sprite):
     def __init__(self, x=10, y=10, name='Player', filename='frog.gif'):
         super(Panel, self).__init__()
-        self.surf = pygame.Surface((200, 200))
-        self.rect = self.surf.get_rect(left=x, top=y, width=200, height=200)
+        self.surf = pygame.Surface((200, 250))
+        self.rect = self.surf.get_rect(left=x, top=y, width=200, height=250)
         self.chosen = 0
         self.btn1_abs_x = x + 10
 
