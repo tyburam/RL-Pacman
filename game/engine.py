@@ -92,9 +92,18 @@ def main_loop(screen, chosen):
                 main_loop(screen, chosen)
                 return
 
-        main_player.update(all_walls, [])
-        ghost1.update(all_walls, [])
-        ghosts.update(all_walls, [])
+        dist_g1_pl = abs(main_player.rect.left - ghost1.rect.left) + abs(main_player.rect.top - ghost1.rect.top)
+        dist_g2_pl = abs(main_player.rect.left - ghost2.rect.left) + abs(main_player.rect.top - ghost2.rect.top)
+        dist_pac_ball = 999999999
+        for ball in all_balls:
+            dist = abs(main_player.rect.left - ball.rect.left) + abs(main_player.rect.top - ball.rect.top)
+            if dist < dist_pac_ball:
+                dist_pac_ball = dist
+        observations = [points, dist_pac_ball, dist_g1_pl, dist_g2_pl]
+
+        main_player.update(all_walls, observations)
+        ghost1.update(all_walls, observations)
+        ghosts.update(all_walls, observations)
         stats.update(points)
 
         screen.blit(background, (0, 0))
