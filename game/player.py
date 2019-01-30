@@ -18,6 +18,7 @@ class AgentPlayer(pygame.sprite.Sprite):
         self.rect.left = x
         self.rect.top = y
         self.agent_type = agent_type
+        self.action = -1
 
         if agent_type == AgentType.RANDOM:
             self.agent = RandomAgent(ALL_ACTIONS)
@@ -33,18 +34,18 @@ class AgentPlayer(pygame.sprite.Sprite):
             self.agent = ThompsonBetaAgent(ALL_ACTIONS)
 
     def update(self, walls, observation):
-        action = self.agent.act(observation)
+        self.action = self.agent.act(observation)
 
         old_x = self.rect.left
         old_y = self.rect.top
 
-        if action == ACTION_LEFT:
+        if self.action == ACTION_LEFT:
             self.rect.move_ip(-5, 0)
-        if action == ACTION_UP:
+        if self.action == ACTION_UP:
             self.rect.move_ip(0, -5)
-        if action == ACTION_RIGHT:
+        if self.action == ACTION_RIGHT:
             self.rect.move_ip(5, 0)
-        if action == ACTION_DOWN:
+        if self.action == ACTION_DOWN:
             self.rect.move_ip(0, 5)
 
         if self.rect.left < 0:
@@ -59,3 +60,6 @@ class AgentPlayer(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self, walls):
             self.rect.left = old_x
             self.rect.top = old_y
+
+    def feedback(self, reward):
+        self.agent.feedback(self.action, reward)

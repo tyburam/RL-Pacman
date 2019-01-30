@@ -106,10 +106,17 @@ def main_loop(screen, chosen):
         if coll_ball:
             coll_ball.kill()
             points += 10
+            main_player.feedback(10)
 
-        if pygame.sprite.spritecollideany(main_player, ghosts):
+        coll_ghost = pygame.sprite.spritecollideany(main_player, ghosts)
+        if coll_ghost:
             main_player.kill()
             screen.blit(text, (250, 350))
+            coll_ghost.reward(1000)
+            main_player.feedback(-1000)
+
+        if not coll_ball or not coll_ghost:
+            main_player.feedback(0)
 
         pygame.display.flip()
         clock.tick(10)

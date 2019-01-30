@@ -1,6 +1,6 @@
 import pygame
 
-from game.consts import WHITE, BLACK, AGENT_NAMES
+from game.consts import WHITE, AGENT_NAMES
 
 
 class Stats(pygame.sprite.Sprite):
@@ -30,4 +30,4 @@ class Stats(pygame.sprite.Sprite):
 
     def update(self, points=0):
         text = self.font.render('Points: ' + str(points), True, WHITE)
-        self.surf.blit(text, (30, 160))
+        self.surf.blit(text, (10, 160))
